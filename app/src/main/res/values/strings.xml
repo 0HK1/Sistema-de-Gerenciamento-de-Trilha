@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SQLiteApp</string>
+    <string name="title_activity_show_route">ShowRouteActivity</string>
+    <!-- Padrão -->
+    <string name="back">Voltar</string>
+    <string name="config">Configurações</string>
+
+    <!-- Strings da tela de configuração -->
+    <string name="ConfigPrincipalText">Configurações</string>
+
+    <string name="TypeConfigTitle">Tipo de Mapa</string>
+    <string name="MapaVetorialButton">Vetorial</string>
+    <string name="MapaSateliteButton">Satélite</string>
+    
+    <string name="TypeFormaNavegacao">Forma de Navegação</string>
+    <string name="NorthUPNavegation">North Up</string>
+    <string name="CourseUp">CourseUp</string>
+</resources>

@@ -68,8 +68,6 @@ public class ConfigMap extends AppCompatActivity {
                     editor.apply();
                     editor.commit();
                 }
-
-                Toast.makeText(ConfigMap.this, "" + checkedId, Toast.LENGTH_SHORT).show();
             }
         });
         typeDirection = sharedPreferences.getInt("TypeDirection", 0);

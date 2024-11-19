@@ -84,17 +84,17 @@ public class ConfigMap extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 RadioButton buttonNorthUp = findViewById(R.id.radioButtonNorthUP);
                 RadioButton buttonCourseUp = findViewById(R.id.radioButtonCourseUP);
-                if (buttonNorthUp.getId() == checkedId){
-                    typeDirection = 0;
+                if (buttonNorthUp.getId() == checkedId) {
+                    typeDirection = 0; // Valor lógico, não o ID
                     configVariables.setTypeDirection(0);
-                    editor.putInt("TypeDirection", buttonNorthUp.getId());
+                    editor.putInt("TypeDirection", 0); // Armazenando o valor lógico
                     editor.apply();
                     editor.commit();
                 }
-                if (buttonCourseUp.getId() == checkedId){
-                    typeDirection = 1;
+                if (buttonCourseUp.getId() == checkedId) {
+                    typeDirection = 1; // Valor lógico, não o ID
                     configVariables.setTypeDirection(1);
-                    editor.putInt("TypeDirection", buttonCourseUp.getId());
+                    editor.putInt("TypeDirection", 1); // Armazenando o valor lógico
                     editor.apply();
                     editor.commit();
                 }

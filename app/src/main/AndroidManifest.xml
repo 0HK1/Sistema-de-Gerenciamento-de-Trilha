@@ -32,7 +32,7 @@
             android:value="AIzaSyBqKsQGMcd3V08sU2MJ4MbGmpX0Nf_MHi8" />
 
         <activity
-            android:name=".GetRouteActivity"
+            android:name=".ObterTrilha.GetRouteActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.SGT.ObterTrilha.GetRouteActivity;
 import com.example.SGT.VisualizarTrilha.*;
 import com.example.SGT.configs.ConfigMap;
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i=new Intent(MainActivity.this,GetRouteActivity.class);
+                Intent i=new Intent(MainActivity.this, GetRouteActivity.class);
 
                 startActivity(i);
             }

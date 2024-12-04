@@ -1,13 +1,17 @@
 package com.example.SGT.ObterTrilha;
 
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -24,10 +28,10 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
+
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
 
 public class GetRouteActivity extends AppCompatActivity {
@@ -39,7 +43,7 @@ public class GetRouteActivity extends AppCompatActivity {
     private Location lastLocation = null;
     private float totalDistance = 0;
     private int contador = 0;
-    private Date dataInicio;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class GetRouteActivity extends AppCompatActivity {
                 contador = 0;
                 totalDistance = 0;
                 startbutton.setText("Stop");
+
+
             } else {
                 stopLocationUpdates();
                 trilhadb.close();
@@ -70,7 +76,11 @@ public class GetRouteActivity extends AppCompatActivity {
     }
 
     private void startLocationUpdates() {
+        sharedPreferences = this.getSharedPreferences("ArquivoPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
             mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
             mLocationRequest = new LocationRequest.Builder(1000)
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -79,9 +89,12 @@ public class GetRouteActivity extends AppCompatActivity {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
-                    if (locationResult != null && locationResult.getLastLocation() != null) {
+                    if (locationResult.getLastLocation() != null) {
                         Location location = locationResult.getLastLocation();
-                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        editor.putFloat("Lat", (float) location.getLatitude());
+                        editor.putFloat("Long", (float) location.getLongitude());
+                        editor.apply();
                         addWayPoint(location);
                     } else {
                         Toast.makeText(GetRouteActivity.this, "Localização indisponível", Toast.LENGTH_SHORT).show();
@@ -89,7 +102,7 @@ public class GetRouteActivity extends AppCompatActivity {
                 }
             };
             mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-            dataInicio = new Date(); // Registra a data e hora atual
+
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_UPDATES);
         }
@@ -105,6 +118,7 @@ public class GetRouteActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     private void addWayPoint(Location location) {
         if (lastLocation != null) {
             totalDistance += lastLocation.distanceTo(location);

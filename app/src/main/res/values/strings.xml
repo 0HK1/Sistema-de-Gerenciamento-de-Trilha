@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SQLiteApp</string>
+    <string name="app_name">SGT</string>
     <string name="title_activity_show_route">ShowRouteActivity</string>
     <!-- Padrão -->
     <string name="back">Voltar</string>
